@@ -17,7 +17,7 @@ app.get("/findColleges", async (req, res) => {
     req.query.minPackage === undefined
       ? Number(0)
       : isNaN(req.query.minPackage)
-      ? Number()
+      ? Number(0)
       : req.query.minPackage
   );
   const maxFees =
@@ -40,17 +40,6 @@ app.get("/findColleges", async (req, res) => {
       course: { $regex: `${course}`, $options: "i" },
       exam: { $regex: `${exam}`, $options: "i" },
     });
-    console.log("if");
-    // } else if (Object.keys(req.query).length !== 0) {
-    //   data = await connection.find({
-    //     name: { $regex: `${name}`, $options: "i" },
-    //     state: { $regex: `${state}`, $options: "i" },
-    //     city: { $regex: `${city}`, $options: "i" },
-    //     minPackage: { $gte: `${minPackage}` },
-    //     maxFees: { $lte: `${maxFees}` },
-    //     course: { $regex: `${course}`, $options: "i" },
-    //     exam: { $regex: `${exam}`, $options: "i" },
-    //   });
   } else {
     data = await connection.find();
   }
