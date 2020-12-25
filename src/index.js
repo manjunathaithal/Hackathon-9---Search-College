@@ -30,21 +30,7 @@ app.get("/findColleges", async (req, res) => {
   const course = req.query.course === undefined ? "" : req.query.course;
   const exam = req.query.exam === undefined ? "" : req.query.exam;
   console.log(minPackage === 0);
-  if (
-    Object.keys(req.query).length !== 0 &&
-    minPackage === 0 &&
-    maxFees === 0
-  ) {
-    data = await connection.find({
-      name: { $regex: `${name}`, $options: "i" },
-      state: { $regex: `${state}`, $options: "i" },
-      city: { $regex: `${city}`, $options: "i" },
-
-      course: { $regex: `${course}`, $options: "i" },
-      exam: { $regex: `${exam}`, $options: "i" },
-    });
-    console.log("if");
-  } else if (Object.keys(req.query).length !== 0) {
+  if (Object.keys(req.query).length !== 0) {
     data = await connection.find({
       name: { $regex: `${name}`, $options: "i" },
       state: { $regex: `${state}`, $options: "i" },
@@ -54,6 +40,17 @@ app.get("/findColleges", async (req, res) => {
       course: { $regex: `${course}`, $options: "i" },
       exam: { $regex: `${exam}`, $options: "i" },
     });
+    console.log("if");
+    // } else if (Object.keys(req.query).length !== 0) {
+    //   data = await connection.find({
+    //     name: { $regex: `${name}`, $options: "i" },
+    //     state: { $regex: `${state}`, $options: "i" },
+    //     city: { $regex: `${city}`, $options: "i" },
+    //     minPackage: { $gte: `${minPackage}` },
+    //     maxFees: { $lte: `${maxFees}` },
+    //     course: { $regex: `${course}`, $options: "i" },
+    //     exam: { $regex: `${exam}`, $options: "i" },
+    //   });
   } else {
     data = await connection.find();
   }
