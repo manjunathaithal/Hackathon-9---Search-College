@@ -26,20 +26,23 @@ app.get("/findColleges", async (req, res) => {
       : isNaN(req.query.maxFees)
       ? Number(10)
       : Number(req.query.maxFees);
-  console.log(maxFees);
   const course = req.query.course === undefined ? "" : req.query.course;
   const exam = req.query.exam === undefined ? "" : req.query.exam;
-
-  // if (req.query) {
-  data = await connection.find({
-    name: { $regex: `${name}`, $options: "i" },
-    state: { $regex: `${state}`, $options: "i" },
-    city: { $regex: `${city}`, $options: "i" },
-    minPackage: { $gte: `${minPackage}` },
-    maxFees: { $lte: `${maxFees}` },
-    course: { $regex: `${course}`, $options: "i" },
-    exam: { $regex: `${exam}`, $options: "i" },
-  });
+  console.log(Object.keys(req.query).length);
+  if (Object.keys(req.query).length !== 0) {
+    data = await connection.find({
+      name: { $regex: `${name}`, $options: "i" },
+      state: { $regex: `${state}`, $options: "i" },
+      city: { $regex: `${city}`, $options: "i" },
+      minPackage: { $gte: `${minPackage}` },
+      maxFees: { $lte: `${maxFees}` },
+      course: { $regex: `${course}`, $options: "i" },
+      exam: { $regex: `${exam}`, $options: "i" },
+    });
+    console.log("if");
+  } else {
+    data = await connection.find();
+  }
   res.send(data);
   //   console.log("hwllo");
   // } else {
